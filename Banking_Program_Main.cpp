@@ -6,32 +6,56 @@
 void showbalance(double balance);
 double deposit();
 double withdraw(double balance);
+double PlatSub(double balance);
 
 int main(){
 
-   double balance;
-   int choice = 0;
+    double balance;
+    int choice = 0;
+    int PlatPay;
     
-    std::ifstream ibalfilestream;
-    std::ofstream obalfilestream;
-
+    std::ifstream ifilestream;
+    std::ofstream ofilestream;
+    
+    std::string filename2 = "RewardsYN.txt";
     std::string fileName = "Balance.txt";
 
-    
-    ibalfilestream.open("balance.txt");
-    ibalfilestream >> balance;
-    ibalfilestream.close();
+
+
+    ifilestream.open("balance.txt");
+    ifilestream >> balance;
+    ifilestream.close();
+
+    ifilestream.open("RewardsYN.txt");
+    ifilestream >> PlatPay;
+    ifilestream.close();
 
     do{
+       if(PlatPay == 0){
         std::cout << "*****************\n";
         std::cout << "enter you choice\n";
         std::cout << "*****************\n";
         std::cout << "1. Show balance\n";
         std::cout << "2. Deposit Money\n";
         std::cout << "3. Withdraw money\n";
-        std::cout << "4. exit\n";
+        std::cout << "4. Enroll in Platinum Pay Rewards\n";
+        std::cout << "6. exit\n";
         std::cin >> choice;
-        std::cout << "*****************\n";        
+        std::cout << "*****************\n";
+       }
+        else if(PlatPay == 1){
+        std::cout << "****************************************************\n";
+        std::cout << "WELCOME PLATINUM MEMBER, HOW MAY I ASSIST YOU TODAY\n";
+        std::cout << "****************************************************\n";
+        std::cout << "1. Show balance\n";
+        std::cout << "2. Deposit Money\n";
+        std::cout << "3. Withdraw money\n";
+        std::cout << "5. Cancle Platinum Membership\n";
+        std::cout << "6. exit\n";
+        std::cin >> choice;
+        std::cout << "*****************************************************\n";
+        }
+        
 
         std::cin.clear();
         fflush(stdin);
@@ -45,20 +69,32 @@ int main(){
         case 3: balance -= withdraw(balance);
             showbalance(balance);
             break;
-        case 4: std::cout << "CYA Later";
+        case 4: PlatPay = 1  ;       
+                std::cout << "Welcome to the PLATINUM REWARDS membership\n";
+                balance -= PlatSub(balance);
+                showbalance(balance);
+            break;
+        case 5: PlatPay = 0  ;
+                std::cout << "goodbye previous rewards member :( \n";        
+            break;
+        case 6: std::cout << "CYA Later\n";
                 std::cout << "*****************\n";        
             break;
-        default: std::cout << "invalid choice";
+        default: std::cout << "invalid choice\n";
                 std::cout << "*****************\n";
         }
-    }while(choice != 4);
+    }while(choice != 6);
    
     int stBal;
 
 
-    obalfilestream.open("balance.txt");
-    obalfilestream << balance;
-    obalfilestream.close();
+    ofilestream.open("balance.txt");
+    ofilestream << balance;
+    ofilestream.close();
+
+    ofilestream.open("RewardsYN.txt");
+    ofilestream << PlatPay;
+    ofilestream.close();    
 
 }
 void showbalance(double balance){
@@ -95,5 +131,17 @@ double withdraw(double balance){
     }
     return 0;
 
+}
+
+double PlatSub(double balance){
+    double fee = 25;
+
+    if(fee <= balance && fee >= 0){
+        return fee;
+    }
+    else{
+        std::cout << "that is not a valid amount\n";
+    }
+    return 0;
 }
     
