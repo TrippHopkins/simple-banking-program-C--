@@ -38,7 +38,7 @@ int main(){
         std::cout << "1. Show balance\n";
         std::cout << "2. Deposit Money\n";
         std::cout << "3. Withdraw money\n";
-        std::cout << "4. Enroll in Platinum Pay Rewards\n";
+        std::cout << "4. Enroll in Platinum Pay Rewards ($25 fee)\n";
         std::cout << "6. exit\n";
         std::cin >> choice;
         std::cout << "*****************\n";
